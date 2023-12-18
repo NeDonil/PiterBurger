@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:vorstu/model/group.dart';
 import 'package:vorstu/service/auth-service.dart';
 
-import '../model/product.dart';
+import 'package:vorstu/model/product.dart';
 
 import 'package:http/http.dart' as http;
 
