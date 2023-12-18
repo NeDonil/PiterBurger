@@ -97,3 +97,7 @@ flutter:
       fonts:
       - asset: fonts/Dorsa-Regular.ttf
         weight: 300
+    - family: lora
+      fonts:
+        - asset: fonts/Lora-Regular.ttf
+          weight: 300
