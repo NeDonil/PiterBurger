@@ -15,7 +15,7 @@ class CustomerService{
     headers = AuthService.headers;
   }
 
-  Future<List<Group>> getGroups() async {
+  Future<List<Group>> getManyGroups() async {
     final response = await http
         .get(Uri.parse(url + "/groups"), headers: headers);
 
@@ -28,7 +28,7 @@ class CustomerService{
     }
   }
 
-  Future<List<Product>> getProductsInGroup(int groupId) async {
+  Future<List<Product>> getProductsByGroupId(int groupId) async {
     final queryParams = {"id": groupId.toString()};
     final response = await http
         .get(Uri.parse(url + "/grouprod").replace(queryParameters: queryParams) , headers: headers);
