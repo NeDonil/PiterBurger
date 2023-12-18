@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'feature/home-screen/view/view.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -26,28 +28,7 @@ class MyApp extends StatelessWidget {
         ),
         scaffoldBackgroundColor: const Color.fromRGBO(255, 227, 202, 1.0),
       ),
-      home: const MainPage(title: 'PiterBurger'),
-    );
-  }
-}
-
-class MainPage extends StatelessWidget {
-  const MainPage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(100.0),
-        child: AppBar(
-          toolbarHeight: 100.0,
-          title: Text(title),
-          centerTitle: true,
-          titleTextStyle: const TextStyle(color: Colors.black, fontFamily: 'default', fontSize: 80.0),
-        ),
-      )
+      home: const HomeView(title: 'PiterBurger'),
     );
   }
 }
