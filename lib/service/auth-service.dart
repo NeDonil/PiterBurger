@@ -10,7 +10,7 @@ class AuthService {
   static Map<String, String> headers = {};
   static var storage = const FlutterSecureStorage();
 
-  static void sendAuthRequest(String uri, String email, String password) async {
+  static Future<String> sendAuthRequest(String uri, String email, String password) async {
     Codec<String, String> stringToBase64 = utf8.fuse(base64);
     final credentials = stringToBase64.encode(email + ":" + password);
     final response = await http
@@ -21,7 +21,10 @@ class AuthService {
 
     if (response.statusCode == HttpStatus.ok) {
       updateCookie(response);
-      log("success");
+      return response.body;
+    }
+    else {
+      throw Exception("AuthRequest failure: " + response.statusCode.toString());
     }
   }
 
@@ -41,6 +44,9 @@ class AuthService {
   static Future<String> getPrincipal(String uri) async {
     final response = await http
         .get(Uri.parse(uri), headers: headers);
+    if(response.statusCode != HttpStatus.ok) {
+      throw Exception("GetPrincipal failure: " + response.statusCode.toString());
+    }
     return response.body;
   }
 
