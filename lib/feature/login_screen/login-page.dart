@@ -17,7 +17,21 @@ class _LoginScreenState extends State<LoginScreen> {
     final email = emailController.text;
     final password = passwordController.text;
 
-    AuthService.sendAuthRequest("http://192.168.0.109:8080/api/auth/login", email, password);
+    AuthService.sendAuthRequest("http://192.168.0.109:8080/api/auth/login", email, password)
+      .then((value) => log(value))
+      .catchError( (onError) => {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              duration: Duration(seconds: 2),
+              content: Text(
+                  'Login error',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white, fontFamily: 'lora', fontSize: 20
+              ),
+            )
+          )
+        )
+      });
   }
 
   @override
