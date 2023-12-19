@@ -19,7 +19,7 @@ class ProductCart extends StatelessWidget {
               ),
               Container(
                 alignment: Alignment.centerLeft,
-                constraints: BoxConstraints(minWidth: 100, maxWidth: MediaQuery.of(context).size.width * 0.5),
+                constraints: BoxConstraints(minWidth: 100, maxWidth: MediaQuery.of(context).size.width * 0.4),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -46,7 +46,7 @@ class ProductCart extends StatelessWidget {
             ),
             onPressed: (){},
             child: Text(
-                "Add",
+                "Добавить",
                 style: TextStyle(fontFamily: 'lora', fontWeight: FontWeight.bold, color: Colors.white),
             )
           )
