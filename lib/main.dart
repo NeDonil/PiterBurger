@@ -1,8 +1,18 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:vorstu/feature/login_screen/view/login_screen.dart';
+import 'package:vorstu/service/auth-service.dart';
 
 import 'feature/home-screen/view/view.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  AuthService.loadCookie()
+    .then((value) => AuthService.headers['Cookie'] = value);
+
   runApp(const MyApp());
 }
 
@@ -29,7 +39,25 @@ class MyApp extends StatelessWidget {
         ),
         scaffoldBackgroundColor: const Color.fromRGBO(255, 227, 202, 1.0),
       ),
-      home: const HomeView(title: 'PiterBurger'),
+      home: FutureBuilder(
+        future: AuthService.getPrincipal("http://192.168.0.109:8080/api/auth/login"),
+        builder: (context, snapshot) {
+          if(snapshot.hasData){
+            if(snapshot.connectionState == ConnectionState.waiting){
+              return Center(child: CircularProgressIndicator());
+            }
+
+            final authorities = jsonDecode(snapshot.data!)['authorities'];
+            if(authorities[0]['authority'] == 'CUSTOMER'){
+              return HomeView(title: "PiterBurger");
+            } else {
+              return Text("Not implemented now");
+            }
+          }
+
+          return LoginScreen();
+        }
+      ),
     );
   }
 }
