@@ -1,14 +1,26 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:vorstu/feature/home-screen/view/group.dart';
 import 'package:vorstu/model/group.dart';
+import 'package:vorstu/service/customer-service.dart';
 import 'package:vorstu/widgets/button.dart';
 
-class GroupList extends StatelessWidget {
-  const GroupList({
-    super.key,
-    required this.groups
-  });
+class GroupList extends StatefulWidget{
+  GroupList({super.key});
+  @override
+  _GroupListState createState() => _GroupListState();
+}
 
-  final List<Group> groups;
+class _GroupListState extends State<GroupList> {
+  late List<Group> groups;
+
+  final CustomerService customerService = CustomerService();
+
+  @override
+  void initState() {
+    customerService.getManyGroups()
+        .then((response) => groups = response);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +32,14 @@ class GroupList extends StatelessWidget {
           child: Button(
             height: 60,
             width: 220,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => GroupView(
+                      groupId: groups.elementAt(index).id
+                  )),
+              );
+            },
             title: groups.elementAt(index).name, // TODO: Name
           )
       ),
