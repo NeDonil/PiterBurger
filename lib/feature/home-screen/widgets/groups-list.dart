@@ -1,20 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:vorstu/model/group.dart';
+import 'package:vorstu/service/customer-service.dart';
 import 'package:vorstu/widgets/button.dart';
 
-class GroupList extends StatelessWidget {
-  const GroupList({
-    super.key,
-    required this.groups
-  });
+class GroupList extends StatefulWidget{
+  GroupList({super.key});
+  @override
+  _GroupListState createState() => _GroupListState();
+}
 
-  final List<Group> groups;
+class _GroupListState extends State<GroupList> {
+  late List<Group> groups;
+
+  final CustomerService customerService = CustomerService();
+
+  @override
+  void initState() {
+    customerService.getManyGroups()
+        .then((response) => groups = response);
+  }
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      padding: const EdgeInsets.only(top: 32),
-      itemCount: groups.length,
+      padding: EdgeInsets.only(top: 32),
+      itemCount: groups.length != null ? groups.length : 0,
       itemBuilder: (context, index) => Align(
           alignment: Alignment.center,
           child: Button(

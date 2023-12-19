@@ -30,9 +30,9 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       appBar: Header(),
-      body: GroupList(groups: groups)
+      body: GroupList()
     );
   }
 }
