@@ -18,10 +18,11 @@ class _ProductListState extends State<ProductList> {
   final CustomerService customerService = CustomerService();
 
   @override
-  void didChangeDependencies() {
+  void initState() {
+    super.initState();
     customerService.getProductsByGroupId(widget.groupId)
-        .then((response) => products = response);
-    super.didChangeDependencies();
+        .then((response) => setState(() => products = response));
+
   }
 
   @override

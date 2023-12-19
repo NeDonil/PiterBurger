@@ -17,9 +17,9 @@ class _GroupListState extends State<GroupList> {
 
   @override
   void initState() {
-    customerService.getManyGroups()
-        .then((response) => groups = response);
     super.initState();
+    customerService.getManyGroups()
+        .then((response) => setState(() => groups = response));
   }
 
   @override
