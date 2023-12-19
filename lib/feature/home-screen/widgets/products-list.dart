@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:vorstu/feature/home-screen/widgets/product-cart.dart';
 import 'package:vorstu/model/product.dart';
 import 'package:vorstu/service/customer-service.dart';
 import 'package:vorstu/widgets/button.dart';
@@ -29,16 +31,12 @@ class _ProductListState extends State<ProductList> {
       itemCount: products.length != null ? products.length : 0,
       itemBuilder: (context, index) => Align(
           alignment: Alignment.center,
-          child: Button(
-            height: 60,
-            width: 220,
-            onPressed: () {},
-            title: products.elementAt(index).name,
-          )
+          child: ProductCart(
+            product: products.elementAt(index),
+          ),
       ),
-      separatorBuilder: (context, index) => const SizedBox(
-        height: 10,
-      ),
+      separatorBuilder: (context, index) =>
+          Divider(height: 5, color: Colors.black, indent: 20, endIndent: 20)
     );
   }
 }
