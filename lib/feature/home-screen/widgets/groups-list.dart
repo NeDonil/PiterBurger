@@ -19,13 +19,14 @@ class _GroupListState extends State<GroupList> {
   void initState() {
     customerService.getManyGroups()
         .then((response) => groups = response);
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       padding: EdgeInsets.only(top: 32),
-      itemCount: groups.length != null ? groups.length : 0,
+      itemCount: groups.length,
       itemBuilder: (context, index) => Align(
           alignment: Alignment.center,
           child: Button(

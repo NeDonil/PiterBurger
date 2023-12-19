@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:vorstu/feature/home-screen/widgets/product-cart.dart';
 import 'package:vorstu/model/product.dart';
 import 'package:vorstu/service/customer-service.dart';
-import 'package:vorstu/widgets/button.dart';
 
 class ProductList extends StatefulWidget{
   final int groupId;
@@ -22,13 +21,14 @@ class _ProductListState extends State<ProductList> {
   void didChangeDependencies() {
     customerService.getProductsByGroupId(widget.groupId)
         .then((response) => products = response);
+    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       padding: EdgeInsets.only(top: 32),
-      itemCount: products.length != null ? products.length : 0,
+      itemCount: products.length,
       itemBuilder: (context, index) => Align(
           alignment: Alignment.center,
           child: ProductCart(
