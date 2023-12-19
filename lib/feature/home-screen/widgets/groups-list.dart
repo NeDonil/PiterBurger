@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:vorstu/feature/home-screen/view/group.dart';
 import 'package:vorstu/model/group.dart';
 import 'package:vorstu/service/customer-service.dart';
 import 'package:vorstu/widgets/button.dart';
@@ -30,7 +31,14 @@ class _GroupListState extends State<GroupList> {
           child: Button(
             height: 60,
             width: 220,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => GroupView(
+                      groupId: groups.elementAt(index).id
+                  )),
+              );
+            },
             title: groups.elementAt(index).name, // TODO: Name
           )
       ),
