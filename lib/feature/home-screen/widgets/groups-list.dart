@@ -25,7 +25,7 @@ class _GroupListState extends State<GroupList> {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      padding: EdgeInsets.only(top: 32),
+      padding: const EdgeInsets.only(top: 32),
       itemCount: groups.length,
       itemBuilder: (context, index) => Align(
           alignment: Alignment.center,
