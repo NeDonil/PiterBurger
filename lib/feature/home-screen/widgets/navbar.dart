@@ -1,6 +1,7 @@
 import 'package:floating_navbar/floating_navbar.dart';
 import 'package:floating_navbar/floating_navbar_item.dart';
 import 'package:flutter/material.dart';
+import 'package:vorstu/feature/home-screen/widgets/groups-list.dart';
 import 'package:vorstu/feature/profile/view/profile.dart';
 
 class Navbar extends StatelessWidget {
@@ -15,14 +16,14 @@ class Navbar extends StatelessWidget {
           horizontalPadding: 50,
           items: [
             FloatingNavBarItem(
-              title: "Profile",
-              page: ProfileView(),
-              iconData : Icons.account_circle,
+              title: "Cart",
+              page: GroupList(),
+              iconData : Icons.shopping_cart,
             ),
             FloatingNavBarItem(
-                title: "Cart",
+                title: "Profile",
                 page: ProfileView(),
-                iconData : Icons.add_shopping_cart
+                iconData : Icons.account_circle
             ),
           ],
           color: Color.fromRGBO(255, 227, 202, 1.0),

@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
             ),
           )
         ),
-        scaffoldBackgroundColor: const Color.fromRGBO(255, 227, 202, 1.0),
+        scaffoldBackgroundColor: Color.fromARGB(255, 85, 67, 57),
       ),
       home: FutureBuilder(
         future: AuthService.getPrincipal("http://192.168.0.109:8080/api/auth/login"),
