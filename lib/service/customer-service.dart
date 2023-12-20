@@ -7,9 +7,13 @@ import 'package:vorstu/model/product.dart';
 
 import 'package:http/http.dart' as http;
 
+import '../model/order.dart';
+
 class CustomerService{
   late Map<String, String> headers;
-  final url = "http://192.168.0.109:8080/api/customer"; // Proxy or dns
+  final url = "http://192.168.0.109:8080/api/customer";
+
+  static final order = Order(items : []);
 
   CustomerService(){
     headers = AuthService.headers;
