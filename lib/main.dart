@@ -79,10 +79,22 @@ class _MyAppState extends State<MyApp> {
         '/not-implemented': (context) => Text("Not implemented now"),
       },
       home: Builder(
-          builder: (context) => Button(
-            onPressed: () => Navigator.of(context).pushNamed('/home'), title: 'Нажмите чтобы продолжить'
+          builder: (context) => GestureDetector(
+            onTap:() {Navigator.of(context).pushNamed("/home");},
+            child: Container(
+              color: Color.fromRGBO(255, 227, 202, 1.0),
+              child: Center(
+              child : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("PiterBurger", style: TextStyle(decoration: TextDecoration.none, fontSize: 100, fontWeight: FontWeight.bold, fontFamily: 'default', color: Color.fromARGB(255, 85, 67, 57))),
+                  Text("Авторизируйтесь чтобы сделать заказ!", style: TextStyle(decoration: TextDecoration.none, fontSize: 20, fontFamily: 'lora', color: Color.fromARGB(205, 85, 67, 57))),
+                ],
+              )
+            )
           )
-      ),
+        )
+      )
     );
   }
 }

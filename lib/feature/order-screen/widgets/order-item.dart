@@ -30,11 +30,11 @@ class OrderItemWidget extends StatelessWidget{
                             orderItem.product.name,
                             maxLines: 2,
                             overflow: TextOverflow.clip,
-                            style: TextStyle(fontSize: 20, fontFamily: 'lora')
+                            style: TextStyle(fontSize: 20, fontFamily: 'lora', fontWeight: FontWeight.bold)
                         ),
                         SizedBox(height: 15),
                         Text(
-                            orderItem.product.price.toString() + " руб",
+                            orderItem.product.price.toString() + " x " + orderItem.count.toString() +  " руб",
                             style: TextStyle(fontSize: 16, fontFamily: 'lora', fontWeight: FontWeight.bold)
                         ),
                       ],

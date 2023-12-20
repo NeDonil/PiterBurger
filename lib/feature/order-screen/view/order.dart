@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vorstu/feature/order-screen/widgets/order-item-list.dart';
+import 'package:vorstu/widgets/button.dart';
 import 'package:vorstu/widgets/header.dart';
 
 import '../../home-screen/widgets/groups-list.dart';
@@ -19,6 +20,7 @@ class _OrderViewState extends State<OrderView>{
     return Scaffold(
         appBar: const Header(),
         body: OrderList(),
+        floatingActionButton: Button(onPressed: (){}, title: "Заказать"),
     );
   }
 }
