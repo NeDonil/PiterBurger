@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vorstu/feature/profile/widgets/profile-action-button.dart';
 import 'package:vorstu/feature/profile/widgets/profile-divider.dart';
+import 'package:vorstu/model/order.dart';
 import 'package:vorstu/service/auth-service.dart';
 
 class ProfileActions extends StatelessWidget {
@@ -31,6 +32,12 @@ class ProfileActions extends StatelessWidget {
             ProfileActionButton(onPressed: () {}, title: 'История заказов'),
             const ProfileDivider(),
             ProfileActionButton(onPressed: () {}, title: 'Информация'),
+            const ProfileDivider(),
+            ProfileActionButton(
+              title: 'Корзина',
+              onPressed: () => {
+                Navigator.of(context).pushNamed('/order')
+            }),
             const ProfileDivider(),
             ProfileActionButton(onPressed: () {
               AuthService.logout();

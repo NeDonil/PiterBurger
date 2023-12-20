@@ -2,6 +2,7 @@ import 'package:floating_navbar/floating_navbar.dart';
 import 'package:floating_navbar/floating_navbar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:vorstu/feature/home-screen/widgets/groups-list.dart';
+import 'package:vorstu/feature/order-screen/view/order.dart';
 import 'package:vorstu/feature/profile/view/profile.dart';
 
 class Navbar extends StatelessWidget {
@@ -16,7 +17,7 @@ class Navbar extends StatelessWidget {
           horizontalPadding: 50,
           items: [
             FloatingNavBarItem(
-              title: "Cart",
+              title: "List",
               page: GroupList(),
               iconData : Icons.shopping_cart,
             ),

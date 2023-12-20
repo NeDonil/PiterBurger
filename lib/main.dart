@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:vorstu/feature/home-screen/view/waiting.dart';
 import 'package:vorstu/feature/login_screen/view/login_screen.dart';
+import 'package:vorstu/feature/order-screen/view/order.dart';
 import 'package:vorstu/service/auth-service.dart';
 import 'package:vorstu/widgets/button.dart';
 
@@ -74,6 +75,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/login': (context) => LoginScreen(),
         '/home': (context) => HomeView(title: "PiterBurger"),
+        '/order': (context) => OrderView(),
         '/not-implemented': (context) => Text("Not implemented now"),
       },
       home: Builder(

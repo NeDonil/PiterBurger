@@ -10,6 +10,41 @@ class OrderItemWidget extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
-    return Text("Order item");
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: 8),
+        child: Row(
+            children: [
+              Row(
+                children: [
+                  Image(
+                    image: NetworkImage(orderItem.product.photo),
+                    width: 100,
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    constraints: BoxConstraints(minWidth: 100, maxWidth: MediaQuery.of(context).size.width * 0.4),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                            orderItem.product.name,
+                            maxLines: 2,
+                            overflow: TextOverflow.clip,
+                            style: TextStyle(fontSize: 20, fontFamily: 'lora')
+                        ),
+                        SizedBox(height: 15),
+                        Text(
+                            orderItem.product.price.toString() + " руб",
+                            style: TextStyle(fontSize: 16, fontFamily: 'lora', fontWeight: FontWeight.bold)
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+
+            ]
+        )
+    );
   }
 }
