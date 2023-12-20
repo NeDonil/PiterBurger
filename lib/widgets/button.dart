@@ -23,11 +23,11 @@ class Button extends StatelessWidget {
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(15.0)),
         ),
-        backgroundColor: const Color.fromRGBO(64, 57, 85, 1.0),
+        backgroundColor: const Color.fromRGBO(255, 227, 202, 1.0),
       ),
       onPressed: onPressed,
       child: Text(title, style: const TextStyle(
-        color: Colors.white,
+        color: Color.fromARGB(255, 85, 67, 57),
         fontSize: 24,
         fontFamily: 'lora'
       ),),

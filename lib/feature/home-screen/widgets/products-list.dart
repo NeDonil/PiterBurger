@@ -18,25 +18,35 @@ class _ProductListState extends State<ProductList> {
   final CustomerService customerService = CustomerService();
 
   @override
-  void didChangeDependencies() {
+  void initState() {
+    super.initState();
     customerService.getProductsByGroupId(widget.groupId)
-        .then((response) => products = response);
-    super.didChangeDependencies();
+        .then((response) => setState(() => products = response));
+
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      padding: EdgeInsets.only(top: 32),
-      itemCount: products.length,
-      itemBuilder: (context, index) => Align(
-          alignment: Alignment.center,
-          child: ProductCart(
-            product: products.elementAt(index),
-          ),
-      ),
-      separatorBuilder: (context, index) =>
-          Divider(height: 5, color: Colors.black, indent: 20, endIndent: 20)
+    return FutureBuilder(
+        future: customerService.getProductsByGroupId(widget.groupId),
+        builder: (context, AsyncSnapshot snapshot){
+          if(!snapshot.hasData){
+            return Center(child:CircularProgressIndicator());
+          } else {
+            return ListView.separated(
+                padding: EdgeInsets.only(top: 32),
+                itemCount: products.length,
+                itemBuilder: (context, index) => Align(
+                  alignment: Alignment.center,
+                  child: ProductCart(
+                    product: products.elementAt(index),
+                  ),
+                ),
+                separatorBuilder: (context, index) =>
+                    Divider(height: 5, color: Colors.black, indent: 20, endIndent: 20)
+            );
+          }
+        }
     );
   }
 }

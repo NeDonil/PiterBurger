@@ -1,18 +1,62 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:vorstu/feature/home-screen/view/waiting.dart';
+import 'package:vorstu/feature/login_screen/view/login_screen.dart';
+import 'package:vorstu/feature/order-screen/view/order.dart';
+import 'package:vorstu/service/auth-service.dart';
+import 'package:vorstu/widgets/button.dart';
 
 import 'feature/home-screen/view/view.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget{
+  MyApp({super.key});
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  void processResponse(String response){
+    log("processResponse");
+    var authorities = jsonDecode(response)['authorities'];
+    if(authorities[0]['authority'] == 'CUSTOMER'){
+      Navigator.of(context).pushNamed('/home');
+    } else {
+      Navigator.of(context).pushNamed('/not-implemented');
+    }
+  }
+
+  void _loadUserInfo(){
+    AuthService.loadCookie()
+        .then((value){
+          AuthService.headers['Cookie'] = value;
+
+          AuthService.getPrincipal("http://192.168.0.109:8080/api/auth/login")
+              .then((response) => processResponse(response))
+              .catchError(() => Navigator.of(context).pushNamed('/login'));
+        })
+        .catchError(() => Navigator.of(context).pushNamed('/login'));
+    ;
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    _loadUserInfo();
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'PiterBurger',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -26,9 +70,31 @@ class MyApp extends StatelessWidget {
             ),
           )
         ),
-        scaffoldBackgroundColor: const Color.fromRGBO(255, 227, 202, 1.0),
+        scaffoldBackgroundColor: Color.fromARGB(255, 85, 67, 57),
       ),
-      home: const HomeView(title: 'PiterBurger'),
+      routes: {
+        '/login': (context) => LoginScreen(),
+        '/home': (context) => HomeView(title: "PiterBurger"),
+        '/order': (context) => OrderView(),
+        '/not-implemented': (context) => Text("Not implemented now"),
+      },
+      home: Builder(
+          builder: (context) => GestureDetector(
+            onTap:() {Navigator.of(context).pushNamed("/home");},
+            child: Container(
+              color: Color.fromRGBO(255, 227, 202, 1.0),
+              child: Center(
+              child : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("PiterBurger", style: TextStyle(decoration: TextDecoration.none, fontSize: 100, fontWeight: FontWeight.bold, fontFamily: 'default', color: Color.fromARGB(255, 85, 67, 57))),
+                  Text("Авторизируйтесь чтобы сделать заказ!", style: TextStyle(decoration: TextDecoration.none, fontSize: 20, fontFamily: 'lora', color: Color.fromARGB(205, 85, 67, 57))),
+                ],
+              )
+            )
+          )
+        )
+      )
     );
   }
 }

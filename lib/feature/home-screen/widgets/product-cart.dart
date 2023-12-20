@@ -1,5 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:vorstu/model/product.dart';
+import 'package:vorstu/service/customer-service.dart';
+
+import '../../../model/order-item.dart';
 
 class ProductCart extends StatelessWidget {
   const ProductCart({required this.product});
@@ -19,7 +24,7 @@ class ProductCart extends StatelessWidget {
               ),
               Container(
                 alignment: Alignment.centerLeft,
-                constraints: BoxConstraints(minWidth: 100, maxWidth: MediaQuery.of(context).size.width * 0.5),
+                constraints: BoxConstraints(minWidth: 100, maxWidth: MediaQuery.of(context).size.width * 0.4),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -44,9 +49,17 @@ class ProductCart extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color.fromRGBO(64, 57, 85, 1.0)
             ),
-            onPressed: (){},
+            onPressed: (){
+                var candid = CustomerService.order.items.where((el) => el.product.name == product.name);
+
+                if (candid.length > 0) {
+                  candid.first.count++;
+                } else {
+                  CustomerService.order.items.add(OrderItem(product: product, count: 1));
+                }
+            },
             child: Text(
-                "Add",
+                "Добавить",
                 style: TextStyle(fontFamily: 'lora', fontWeight: FontWeight.bold, color: Colors.white),
             )
           )

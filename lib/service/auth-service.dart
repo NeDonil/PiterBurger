@@ -59,4 +59,9 @@ class AuthService {
       storage.write(key: "Cookie", value: cookie);
     }
   }
+
+  static void logout(){
+    headers['Cookie'] = '';
+    storage.write(key: "Cookie", value: '');
+  }
 }
