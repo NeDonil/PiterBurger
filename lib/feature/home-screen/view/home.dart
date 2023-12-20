@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vorstu/feature/home-screen/widgets/navbar.dart';
 import 'package:vorstu/feature/home-screen/widgets/widgets.dart';
-import 'package:vorstu/model/group.dart';
 import 'package:vorstu/widgets/header.dart';
 
 class HomeView extends StatelessWidget {
@@ -12,7 +12,8 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const Header(),
-      body: GroupList()
+      body: GroupList(),
+      bottomNavigationBar: const Navbar()
     );
   }
 }

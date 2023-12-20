@@ -30,6 +30,8 @@ class ProfileActions extends StatelessWidget {
             ProfileActionButton(onPressed: () {}, title: 'История заказов'),
             const ProfileDivider(),
             ProfileActionButton(onPressed: () {}, title: 'Информация'),
+            const ProfileDivider(),
+            ProfileActionButton(onPressed: () {}, title: 'Выйти'),
           ],
         ),
       ),
