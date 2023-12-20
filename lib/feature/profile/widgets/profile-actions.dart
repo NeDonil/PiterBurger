@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vorstu/feature/profile/widgets/profile-action-button.dart';
 import 'package:vorstu/feature/profile/widgets/profile-divider.dart';
+import 'package:vorstu/service/auth-service.dart';
 
 class ProfileActions extends StatelessWidget {
   const ProfileActions({ super.key });
@@ -31,7 +32,10 @@ class ProfileActions extends StatelessWidget {
             const ProfileDivider(),
             ProfileActionButton(onPressed: () {}, title: 'Информация'),
             const ProfileDivider(),
-            ProfileActionButton(onPressed: () {}, title: 'Выйти'),
+            ProfileActionButton(onPressed: () {
+              AuthService.logout();
+              Navigator.popAndPushNamed(context, '/login');
+            }, title: 'Выйти'),
           ],
         ),
       ),

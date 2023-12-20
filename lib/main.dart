@@ -2,22 +2,54 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:vorstu/feature/home-screen/view/waiting.dart';
 import 'package:vorstu/feature/login_screen/view/login_screen.dart';
 import 'package:vorstu/service/auth-service.dart';
+import 'package:vorstu/widgets/button.dart';
 
 import 'feature/home-screen/view/view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
-  AuthService.loadCookie()
-    .then((value) => AuthService.headers['Cookie'] = value);
-
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget{
+  MyApp({super.key});
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  void processResponse(String response){
+    log("processResponse");
+    var authorities = jsonDecode(response)['authorities'];
+    if(authorities[0]['authority'] == 'CUSTOMER'){
+      Navigator.of(context).pushNamed('/home');
+    } else {
+      Navigator.of(context).pushNamed('/not-implemented');
+    }
+  }
+
+  void _loadUserInfo(){
+    AuthService.loadCookie()
+        .then((value){
+          AuthService.headers['Cookie'] = value;
+
+          AuthService.getPrincipal("http://192.168.0.109:8080/api/auth/login")
+              .then((response) => processResponse(response))
+              .catchError(() => Navigator.of(context).pushNamed('/login'));
+        })
+        .catchError(() => Navigator.of(context).pushNamed('/login'));
+    ;
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    _loadUserInfo();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,24 +71,15 @@ class MyApp extends StatelessWidget {
         ),
         scaffoldBackgroundColor: Color.fromARGB(255, 85, 67, 57),
       ),
-      home: FutureBuilder(
-        future: AuthService.getPrincipal("http://192.168.0.109:8080/api/auth/login"),
-        builder: (context, snapshot) {
-          if(snapshot.hasData){
-            if(snapshot.connectionState == ConnectionState.waiting){
-              return Center(child: CircularProgressIndicator());
-            }
-
-            final authorities = jsonDecode(snapshot.data!)['authorities'];
-            if(authorities[0]['authority'] == 'CUSTOMER'){
-              return HomeView(title: "PiterBurger");
-            } else {
-              return Text("Not implemented now");
-            }
-          }
-
-          return LoginScreen();
-        }
+      routes: {
+        '/login': (context) => LoginScreen(),
+        '/home': (context) => HomeView(title: "PiterBurger"),
+        '/not-implemented': (context) => Text("Not implemented now"),
+      },
+      home: Builder(
+          builder: (context) => Button(
+            onPressed: () => Navigator.of(context).pushNamed('/home'), title: 'Нажмите чтобы продолжить'
+          )
       ),
     );
   }

@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final password = passwordController.text;
 
     AuthService.sendAuthRequest("http://192.168.0.109:8080/api/auth/login", email, password)
-      .then((value) => log(value))
+      .then((value) => Navigator.of(context).popAndPushNamed('/home'))
       .catchError( (onError) => {
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
